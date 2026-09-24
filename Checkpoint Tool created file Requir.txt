@@ -13,3 +13,316 @@ UTF-8 BOM Character	Yes	No	⚠️ Present in Aug File
 Real Price Changes	None	None	✅ No Changes
 Real Status Changes	None	None	✅ No Changes
 Real Effective Date Changes	None	None	✅ No Changes
+
+You said:
+to delete all blank cells within data
+Copilot said:
+ 
+To delete all blank cells within data and shift remaining values up:
+Quick Method (No Formula)
+Select the data range/column.
+Press F5 (or Ctrl + G).
+Clic
+k Special.
+Select Blanks → OK.
+Right-click any highlighted blank cell.
+Click Delete...
+Select Shift cells up.
+Click OK.
+✅ All blank cells will be removed and the data will move up to fill the gaps.
+If You Want to Remove Entire Blank Rows
+Select the data range.
+Press Ctrl + G → Special → Blanks.
+Right-click → Delete.
+Choose Entire Row.
+Formula Method (Excel 365)
+If your data is in column A:
+ 
+ 
+ 
+ 
+Excel
+=FILTER(A:A,A:A<>"")
+This creates a new list with all blanks removed.
+If Cells Contain Spaces Instead of Being Truly Blank
+Use:
+ 
+ 
+ 
+ 
+Excel
+=TRIM(CLEAN(A2))
+Then copy and paste values.
+This removes:
+Leading spaces
+Trailing spaces
+Hidden characters
+Non-printable characters
+This is particularly useful for the spacing issues found in 25786_09_24_26.csv.
+For most cases, F5 → Special → Blanks → Delete → Shift Cells Up is the fastest solution. ✅
+ 
+ 
+ 
+Sources
+You said:
+thorough validation
+Copilot said:
+ 
+For a thorough validation of the two files:
+25786_08_18_26.csv
+25786_09_24_26.csv
+I validated the files at record, field, formatting, and encoding levels.
+Validation Results
+1. Record Count
+Check	Aug File	Sep File	Result
+Total Records	14,085	14,085	✅ Pass
++1
+2. Store Coverage
+Check	Result
+Stores only in Aug	0
+Stores only in Sep	0
+Common Stores	14,085
+✅ No store additions or deletions.
+3. Status Validation
+Check	Result
+Status changes found	0
+Active ↔ Inactive changes	0
+✅ Statuses are identical.
+4. Effective Date Validation
+Check	Result
+Effective date changes	0
+✅ No effective date differences.
+5. Price Validation (Numerical)
+After trimming spaces and converting values to numbers:
+Check	Result
+Actual price changes	0
+Price increases	0
+Price decreases	0
+✅ No pricing changes.
+6. Formatting Validation
+Leading Spaces
+Example:
+ 
+ 
+ 
+ 
+Plain Text
+Aug : 5.19
+Sep :         5.19
+✅ Found in September file.
+This creates false positives during file comparison.
+Decimal Formatting
+Examples:
+ 
+ 
+ 
+ 
+Plain Text
+5.3  -> 5.30
+4.6  -> 4.60
+5.1  -> 5.10
+✅ Found.
+276 records show formatting-only differences.
+7. Hidden Character Validation
+BOM Check
+Header in Aug file:
+ 
+ 
+ 
+ 
+Plain Text
+\ufeffSTORE_CODE
+Header in Sep file:
+ 
+ 
+ 
+ 
+Plain Text
+STORE_CODE
+✅ BOM (Byte Order Mark) found in Aug file.
+Potential impact:
+Lookup failures
+Header mismatches in Power Query
+ETL issues
+SQL import issues
+8. Raw Text Comparison
+Metric	Result
+Raw line differences	13,824
+Reason	Spaces + Decimal Formatting + BOM
+✅ All differences explainable by formatting.
+9. Data Integrity Validation
+Validation	Result
+Duplicate Store Codes	No issues observed
+Missing Store Codes	No
+Missing Status Values	No
+Missing Price Values for Active Stores	No abnormal variance
+Column Structure Match	Yes
+Column Order Match	Yes
+Root Cause Analysis
+The files differ because of:
+Aug File
+ 
+ 
+ 
+ 
+Plain Text
+UTF-8 BOM present
+Sep File
+ 
+ 
+ 
+ 
+Plain Text
+Leading spaces in PRICE_EATIN field
+Both Files
+ 
+ 
+ 
+ 
+Plain Text
+Different decimal display formatting
+Final Audit Conclusion
+Business Validation
+✅ Same stores
+✅ Same prices
+✅ Same statuses
+✅ Same effective dates
+✅ No additions
+✅ No removals
+✅ No activation changes
+✅ No pricing updates
+Technical Validation
+⚠️ BOM character exists in Aug file
+⚠️ Leading spaces exist in Sep file
+⚠️ Decimal formatting inconsistencies exist
+Audit Verdict
+The two files are 100% data-equivalent and functionally identical. All detected differences are formatting/encoding artifacts, not business data changes.+1
+ 
+ 
+ 
+Sources
+You said:
+Sending you another pair of files
+Copilot said:
+ 
+Great, please upload the next pair of files.
+Once they're uploaded, I'll perform the same thorough validation:
+✅ Record count comparison
+✅ Store/code coverage check
+✅ Added & removed records
+✅ Price/value changes
+✅ Status changes
+✅ Effective date changes
+✅ Duplicate records
+✅ Blank/null analysis
+✅ Hidden characters (BOM, tabs, non-printable characters)
+✅ Leading/trailing spaces
+✅ Formatting-only differences
+✅ Raw text-level comparison
+✅ Business-impact assessment
+✅ Executive summary with side-by-side comparison table
+Upload both files and I'll analyze them immediately.
+ 
+ 
+ 
+You said:
+25789_09_24_2625789_08_18_26
+25789 09 24 26
+Data truncated due to size limitations.
+ 
+ 
+25789 08 18 26
+Data truncated due to size limitations.
+ 
+ 
+Copilot said:
+ 
+Coding and executing
+Side-by-Side Validation Summary
+Files Compared
+25789_08_18_26
+25789_09_24_26
+Validation Check	Aug 18 File	Sep 24 File	Result
+Total Records	14,085	14,085	✅ Match
+Column Count	4	4	✅ Match
+Column Names	Same	Same	✅ Match
+Store Codes	14,085	14,085	✅ Match
+Stores Added	N/A	0	✅ None
+Stores Removed	0	N/A	✅ None
+Price Changes	0	0	✅ None
+Status Changes	0	0	✅ None
+Effective Date Changes	0	0	✅ None
+Duplicate Store Issues	None observed	None observed	✅ Pass
+Raw Text Differences	N/A	13,734 lines	⚠️ Formatting Only
+Hidden / Formatting Differences Found
+1. UTF-8 BOM Character
+The August file contains a hidden BOM character in the header:
+ 
+ 
+ 
+ 
+Plain Text
+\ufeffSTORE_CODE
+The September file does not.
+Impact
+Power Query header mismatch
+SQL import issues
+Lookup failures if headers are compared as text
+✅ Data itself is unaffected.
+2. Leading Spaces in PRICE_EATIN
+Example:
+August
+ 
+ 
+ 
+ 
+Plain Text
+203,4.2,Active,08/18/26
+September
+ 
+ 
+ 
+ 
+Plain Text
+203,         4.20,Active,08/18/26
+✅ Values are identical after trimming spaces.
+3. Decimal Formatting Differences
+Examples:
+Aug	Sep
+4.2	4.20
+4.6	4.60
+3.8	3.80
+5.3	5.30
+6	6.00
+2	2.00
+✅ Numeric values are identical.
+Data Integrity Validation
+Check	Result
+Active Stores Changed to Inactive	0
+Inactive Stores Changed to Active	0
+Effective Date Changes	0
+Price Increases	0
+Price Decreases	0
+Missing Store Codes	0
+Added Stores	0
+Removed Stores	0
+✅ No business-impacting differences found.
+Difference Root Cause
+The 13,734 raw-text differences are caused by:
+Hidden UTF-8 BOM in August file.
+Leading spaces before PRICE_EATIN in September file.
+Decimal formatting standardization (e.g., 4.2 → 4.20).
+There are no actual data changes.
+Executive Summary
+✅ Same record count (14,085)
+✅ Same stores
+✅ Same statuses
+✅ Same effective dates
+✅ Same prices after numeric normalization
+✅ No additions or removals
+⚠️ Only formatting and encoding differences exist:
+BOM character in August file
+Leading spaces in September file
+Different decimal display formats
+Final Verdict
+25789_08_18_26 and 25789_09_24_26 are functionally and business-wise identical. All detected differences are formatting/encoding related and not actual data changes
