@@ -1,0 +1,15 @@
+Checkpoint	Tool created file	Required file 	Result
+Total Records	store no	store no	✅ Match
+Store Count	14,085	14,085	✅ Match
+Missing Stores	None	None	✅ Match
+New Stores	N/A	None	✅ Match
+Removed Stores	None	N/A	✅ Match
+Status Values	Active / Inactive	Active / Inactive	✅ Match
+Effective Dates	Same	Same	✅ Match
+Actual Prices	Same	Same	✅ Match
+Price Formatting	5.3, 4.6, 5.2	5.30, 4.60, 5.20	⚠️ Formatting Difference Only
+Leading Spaces in PRICE_EATIN	No	Yes	⚠️ Present in Sep File
+UTF-8 BOM Character	Yes	No	⚠️ Present in Aug File
+Real Price Changes	None	None	✅ No Changes
+Real Status Changes	None	None	✅ No Changes
+Real Effective Date Changes	None	None	✅ No Changes
